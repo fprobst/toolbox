@@ -1,1 +1,22 @@
-README file
+## The ultimate Toolbox
+
+Contains the following Java programs:
+
+-	LinePrinter
+-	ListTimezones
+-	RegexCheck
+
+### LinePrinter
+
+Do you ever searched a malformed character ANYWHERE at line 143? This tool will search recursive all files with a given suffix and prints all line xxx to stdout (if the file has so much lines!)
+
+Commandline:
+`java -cp toolbox-1.0.0-SNAPSHOT toolbox.LinePrinter .java 143`
+
+### ListTimezones
+
+Just shows informations about the current default timezone used by the JVM.
+
+### Regex Check
+
+Checks if some text matches a regex pattern
