@@ -3,9 +3,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- * @version $Id: LinePrinter.java,v 1.1 2012/05/07 14:49:48 fp Exp $
- */
 public final class LinePrinter
 {
     /** Verzeichnis das untersucht wird */

@@ -1,9 +1,6 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * @version $Id: RegexCheck.java,v 1.1 2012/05/18 06:35:56 fp Exp $
- */
 public final class RegexCheck
 {
     /**
