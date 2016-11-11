@@ -14,7 +14,7 @@ public final class LinePrinter
 	private final String m_FileSuffix;
 
 	/**
-	 * Konstruktor übergibt das Start Verzeichnis und die Dateiendung
+	 * Konstruktor Ã¼bergibt das Start Verzeichnis und die Dateiendung
 	 * 
 	 * @param rootRirectory
 	 * @param fileSuffix
@@ -39,9 +39,9 @@ public final class LinePrinter
 	}
 
 	/**
-	 * Rekursive Methode die ein File prüft. Ist das File ein Verzeichnis wird
+	 * Rekursive Methode die ein File prÃ¼ft. Ist das File ein Verzeichnis wird
 	 * die Methode auf alle Dateien im Verzeichnis aufgerufen. Andernfalls wird
-	 * die Datei zeilenweise durchlaufen und die übergebene Zeilenzahl (sofern
+	 * die Datei zeilenweise durchlaufen und die Ã¼bergebene Zeilenzahl (sofern
 	 * vorhanden) ausgegeben.
 	 * 
 	 * @param file
@@ -113,7 +113,45 @@ public final class LinePrinter
 	 */
 	public static void main(final String[] args)
 	{
-		LinePrinter t = new LinePrinter("src/main/java", ".java");
-		t.printLines(184);
+		if(args == null)
+		{
+			System.err.println("Command line: <path> <fileSuffix> <lineNr>");
+		}
+		
+		String folder = null, suffix = null;
+		int line = 0;
+		
+		for(int i=0; i < args.length; i++)
+		{
+			switch(i) 
+			{
+				case 0:
+					folder = args[i];
+					break;
+				case 1:
+					suffix = args[i];
+					break;
+				case 2:
+					try
+					{
+						line = Integer.parseInt(args[i]);
+						break;
+					} 
+					catch(java.text.NumberFormatException e)
+					{
+						System.err.println("Illegal number: " + args[i]);
+					}
+				default:
+					break;
+			}
+		}
+		
+		if(folder == null || suffix == null || line == 0)
+		{
+			System.err.println("Command line: <path> <fileSuffix> <lineNr>");
+		}
+		
+		LinePrinter t = new LinePrinter(folder, suffix);
+		t.printLines(line);
 	}
 }
