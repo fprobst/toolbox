@@ -137,7 +137,7 @@ public final class LinePrinter
 						line = Integer.parseInt(args[i]);
 						break;
 					} 
-					catch(java.parse.NumberFormatException e)
+					catch(NumberFormatException e)
 					{
 						System.err.println("Illegal number: " + args[i]);
 					}
