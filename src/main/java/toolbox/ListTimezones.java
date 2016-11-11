@@ -51,5 +51,6 @@ public final class ListTimezones
 				buffer.delete(0, buffer.length());
 			}
 		}
+		System.out.println("Beendet");
 	}
 }
