@@ -1,4 +1,4 @@
-package swing;
+package toolbox.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -15,11 +15,11 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 /**
- * Ersatz für den aktuellen Wait Dialog der eher schlecht als recht funktioniert
+ * Ersatz fï¿½r den aktuellen Wait Dialog der eher schlecht als recht funktioniert
  */
 public final class WaitDialog
 {
-    /** Executor führ die Runnables aus */
+    /** Executor fï¿½hr die Runnables aus */
     private ExecutorService m_Executor = Executors.newSingleThreadExecutor();
 
     /** Die interne Instanz des Wait Dialogs */
@@ -28,11 +28,11 @@ public final class WaitDialog
     /** Counter wieviele Call- bzw. Runnables im Executor enthalten sind */
     private AtomicInteger m_Counter = new AtomicInteger(0);
 
-    /** Der Dialog der ggf. während der Ausführung angezeigt wird */
+    /** Der Dialog der ggf. wï¿½hrend der Ausfï¿½hrung angezeigt wird */
     private InnerDialog m_Dialog = null;
 
     /**
-     * Keine öffentlichen Instanzen erlaubt
+     * Keine ï¿½ffentlichen Instanzen erlaubt
      */
     private WaitDialog()
     {
@@ -40,8 +40,8 @@ public final class WaitDialog
     }
 
     /**
-     * Nur für den internen Gebrauch
-     * 
+     * Nur fï¿½r den internen Gebrauch
+     *
      * @return
      */
     private static WaitDialog getInstance()
@@ -54,9 +54,9 @@ public final class WaitDialog
     }
 
     /**
-     * Gib dem Wait Dialog etwas zu tun. Während der Ausführung des übergebenen Tasks wird der übergebene Text 
-     * (key aus einem ResourceBundle) angezeigt.
-     * 
+     * Gib dem Wait Dialog etwas zu tun. Wï¿½hrend der Ausfï¿½hrung des ï¿½bergebenen Tasks wird der ï¿½bergebene Text (key aus
+     * einem ResourceBundle) angezeigt.
+     *
      * @param message
      * @param task
      */
@@ -66,9 +66,9 @@ public final class WaitDialog
     }
 
     /**
-     * Wartet auf das Ergebnis des übergebenen Tasks. Während der Ausführung des übergebenen Tasks wird der übergebene Text 
-     * (key aus einem ResourceBundle) angezeigt.
-     * 
+     * Wartet auf das Ergebnis des ï¿½bergebenen Tasks. Wï¿½hrend der Ausfï¿½hrung des ï¿½bergebenen Tasks wird der ï¿½bergebene
+     * Text (key aus einem ResourceBundle) angezeigt.
+     *
      * @param message
      * @param task
      * @return
@@ -79,9 +79,9 @@ public final class WaitDialog
     }
 
     /**
-     * Fügt dem Executor einen neuen Job hinzu. Der Text (aus einem ResourceBundle?) wird während der Ausführung des
+     * Fï¿½gt dem Executor einen neuen Job hinzu. Der Text (aus einem ResourceBundle?) wird wï¿½hrend der Ausfï¿½hrung des
      * Jobs angezeigt
-     * 
+     *
      * @param message
      * @param task
      */
@@ -92,9 +92,9 @@ public final class WaitDialog
     }
 
     /**
-     * Liefert das Ergebnis des übergebenen Callables zurück. Während der Ausführung wird der übergebene Text (aus
+     * Liefert das Ergebnis des ï¿½bergebenen Callables zurï¿½ck. Wï¿½hrend der Ausfï¿½hrung wird der ï¿½bergebene Text (aus
      * Gui/Message Bundle) angezeigt.
-     * 
+     *
      * @param message
      * @param task
      * @return
@@ -122,7 +122,7 @@ public final class WaitDialog
     }
 
     /**
-     * Ein Runnable wurde beendet - prüfe den Counter ob noch weitere Jobs offen sind. Wenn nicht, wird der Dialog
+     * Ein Runnable wurde beendet - prï¿½fe den Counter ob noch weitere Jobs offen sind. Wenn nicht, wird der Dialog
      * ausgeblendet
      */
     void doFinishRunnable()
@@ -149,7 +149,7 @@ public final class WaitDialog
     }
 
     /**
-     * Startet die Ausführung eines Tasks. Falls der Dialog nicht angezeigt wird, wird er eingeblendet
+     * Startet die Ausfï¿½hrung eines Tasks. Falls der Dialog nicht angezeigt wird, wird er eingeblendet
      */
     void doStartRunnable(final String message)
     {
@@ -177,20 +177,20 @@ public final class WaitDialog
     }
 
     /**
-     * Inneres Callable das im Vergleich zum Runnable einen Wert zurückliefern kann. Während der Ausführung wird der
+     * Inneres Callable das im Vergleich zum Runnable einen Wert zurï¿½ckliefern kann. Wï¿½hrend der Ausfï¿½hrung wird der
      * angegebene Text angezeigt.
      */
     class InnerCallable<V> implements Callable<V>
     {
-        /** Meldung für die Progressbar */
+        /** Meldung fï¿½r die Progressbar */
         private String m_Message;
 
-        /** Task der ausgeführt werden soll */
+        /** Task der ausgefï¿½hrt werden soll */
         private Callable<V> m_Callable;
 
         /**
-         * Konstruktor übergibt die notwendigen Felder Meldung und Task
-         * 
+         * Konstruktor ï¿½bergibt die notwendigen Felder Meldung und Task
+         *
          * @param message
          * @param task
          */
@@ -218,19 +218,19 @@ public final class WaitDialog
     }
 
     /**
-     * Spezielles Runnable das zusätzlich einen Text speichert der angezeigt werden kann
+     * Spezielles Runnable das zusï¿½tzlich einen Text speichert der angezeigt werden kann
      */
     class InnerRunnable implements Runnable
     {
-        /** Meldung für die Progressbar */
+        /** Meldung fï¿½r die Progressbar */
         private String m_Message;
 
-        /** Task der ausgeführt werden soll */
+        /** Task der ausgefï¿½hrt werden soll */
         private Runnable m_Runnable;
 
         /**
-         * Konstruktor übergibt die notwendigen Felder Meldung und Task
-         * 
+         * Konstruktor ï¿½bergibt die notwendigen Felder Meldung und Task
+         *
          * @param message
          * @param task
          */
@@ -293,7 +293,7 @@ public final class WaitDialog
 
         /**
          * Aktualisiert den Text der Progressbar
-         * 
+         *
          * @param text
          */
         void setText(final String text)
