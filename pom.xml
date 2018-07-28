@@ -6,7 +6,8 @@
 	<packaging>jar</packaging>
 	<name>toolbox</name>
 	<url>https://github.com/fprobst/toolbox</url>
-
+	<description>Sample project for testing purposes.</description>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
