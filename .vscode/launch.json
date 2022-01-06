@@ -36,7 +36,8 @@
             "name": "Launch File2Base64",
             "request": "launch",
             "mainClass": "toolbox.base64.File2Base64",
-            "projectName": "toolbox"
+            "projectName": "toolbox",
+            "args": "pom.xml"
         },
         {
             "type": "java",
@@ -51,7 +52,7 @@
             "request": "launch",
             "mainClass": "util.FiftyTwo",
             "projectName": "toolbox",
-            "args": "2021"
+            "args": "2022"
         }
     ]
 }

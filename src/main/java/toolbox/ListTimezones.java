@@ -1,53 +1,54 @@
 package toolbox;
 
-import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.SortedSet;
 import java.util.TimeZone;
 import java.util.TreeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
- * Klasse für allerlei Zeitzonen Krimskrams
+ * Klasse fÃ¼r allerlei Zeitzonen Krimskrams
  */
-public final class ListTimezones
-{
+public final class ListTimezones {
+
+	/** Logger */
+	private static Logger log = LoggerFactory.getLogger(ListTimezones.class);
+
 	/**
 	 * Default Konstruktor
 	 */
-	private ListTimezones()
-	{
+	private ListTimezones() {
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(final String[] args)
-	{
-		System.out.println("Aktuelle Zeitzone:");
+	public static void main(final String[] args) {
+		log.info("Aktuelle Zeitzone:");
 		TimeZone timeZone = TimeZone.getDefault();
 		int offset = -1 * (timeZone.getRawOffset() / (1000 * 60 * 60));
 		String offsetStr = offset > 0 ? "+" + offset : Long.toString(offset);
-		System.out.println(MessageFormat.format("{0} (GMT{1})",
-				timeZone.getDisplayName(true, TimeZone.SHORT), offsetStr));
-		System.out.println(timeZone.toString());
+		log.info("{} (GMT{})",
+				timeZone.getDisplayName(true, TimeZone.SHORT), offsetStr);
+		log.info("{}", timeZone);
 
-		System.out.println("Aktuelle Uhrzeit:");
-		System.out.println(new Date().toString());
+		log.info("Aktuelle Uhrzeit:");
+		log.info("{}", new Date());
 
-		System.out.println("Verfügbare Zeitzonen:");
+		log.info("VerfÃ¼gbare Zeitzonen:");
 
-		SortedSet<String> set = new TreeSet<String>(Arrays.asList(TimeZone
+		SortedSet<String> set = new TreeSet<>(Arrays.asList(TimeZone
 				.getAvailableIDs()));
-		StringBuffer buffer = new StringBuffer();
-		for (String timezone : set)
-		{
+		StringBuilder buffer = new StringBuilder();
+		for (String timezone : set) {
 			buffer.append(timezone);
 			buffer.append(", ");
 
-			if (buffer.length() > 100)
-			{
-				System.out.println(buffer);
+			if (buffer.length() > 100) {
+				log.info("{}", buffer);
 				buffer.delete(0, buffer.length());
 			}
 		}
