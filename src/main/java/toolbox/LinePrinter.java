@@ -5,8 +5,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public final class LinePrinter
-{
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public final class LinePrinter {
+
+	/** Logger */
+	private static Logger log = LoggerFactory.getLogger(LinePrinter.class);
+
 	/** Verzeichnis das untersucht wird */
 	private final File m_RootRirectory;
 
@@ -14,13 +20,12 @@ public final class LinePrinter
 	private final String m_FileSuffix;
 
 	/**
-	 * Konstruktor übergibt das Start Verzeichnis und die Dateiendung
+	 * Konstruktor ï¿½bergibt das Start Verzeichnis und die Dateiendung
 	 * 
 	 * @param rootRirectory
 	 * @param fileSuffix
 	 */
-	private LinePrinter(final String rootRirectory, final String fileSuffix)
-	{
+	private LinePrinter(final String rootRirectory, final String fileSuffix) {
 		m_FileSuffix = fileSuffix.toLowerCase();
 		m_RootRirectory = new File(rootRirectory);
 	}
@@ -30,80 +35,43 @@ public final class LinePrinter
 	 * 
 	 * @param line
 	 */
-	public void printLines(final int line)
-	{
-		for (File f : m_RootRirectory.listFiles())
-		{
+	public void printLines(final int line) {
+		for (File f : m_RootRirectory.listFiles()) {
 			checkFile(f, line);
 		}
 	}
 
 	/**
-	 * Rekursive Methode die ein File prüft. Ist das File ein Verzeichnis wird
+	 * Rekursive Methode die ein File prï¿½ft. Ist das File ein Verzeichnis wird
 	 * die Methode auf alle Dateien im Verzeichnis aufgerufen. Andernfalls wird
-	 * die Datei zeilenweise durchlaufen und die übergebene Zeilenzahl (sofern
+	 * die Datei zeilenweise durchlaufen und die ï¿½bergebene Zeilenzahl (sofern
 	 * vorhanden) ausgegeben.
 	 * 
 	 * @param file
 	 * @param line
 	 */
-	private void checkFile(final File file, final int line)
-	{
-		if (file.isDirectory())
-		{
-			for (File f : file.listFiles())
-			{
+	private void checkFile(final File file, final int line) {
+		if (file.isDirectory()) {
+			for (File f : file.listFiles()) {
 				checkFile(f, line);
 			}
-		} else
-		{
-			if (!file.getName().toLowerCase().endsWith(m_FileSuffix))
-			{
+		} else {
+			if (!file.getName().toLowerCase().endsWith(m_FileSuffix)) {
 				return;
 			}
 
-			BufferedReader reader = null;
-			FileReader fileReader = null;
-			try
-			{
-				fileReader = new FileReader(file);
-				reader = new BufferedReader(fileReader);
+			try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 				String lineStr;
 				int lineCounter = 0;
-				while ((lineStr = reader.readLine()) != null)
-				{
+				while ((lineStr = reader.readLine()) != null) {
 					lineCounter++;
-					if (lineCounter == line)
-					{
-						System.out.println(file.getName() + ": "
-								+ lineStr.trim());
+					if (lineCounter == line) {
+						String lineStrTrimmed = lineStr.trim();
+						log.info("{}: {}", file.getName(), lineStrTrimmed);
 					}
 				}
-			} catch (IOException ioe)
-			{
+			} catch (IOException ioe) {
 				ioe.printStackTrace();
-			} finally
-			{
-				if (fileReader != null)
-				{
-					try
-					{
-						fileReader.close();
-					} catch (IOException e)
-					{
-						e.printStackTrace();
-					}
-				}
-				if (reader != null)
-				{
-					try
-					{
-						reader.close();
-					} catch (IOException e)
-					{
-						e.printStackTrace();
-					}
-				}
 			}
 		}
 	}
@@ -111,8 +79,7 @@ public final class LinePrinter
 	/**
 	 * @param args
 	 */
-	public static void main(final String[] args)
-	{
+	public static void main(final String[] args) {
 		LinePrinter t = new LinePrinter("src/main/java", ".java");
 		t.printLines(184);
 	}

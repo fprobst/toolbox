@@ -5,50 +5,49 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class File2Base64
-{
+public class File2Base64 {
+
+	/** Logger */
+	private static Logger log = LoggerFactory.getLogger(File2Base64.class);
+
 	/** Name der Datei die in Base64 codiert werden soll */
 	private String m_FileName;
 
 	/**
-	 * Konstruktor der den Namen der Datei übergeben bekommt
+	 * Konstruktor der den Namen der Datei ï¿½bergeben bekommt
 	 * 
 	 * @param fileName
 	 */
-	public File2Base64(final String fileName)
-	{
-		super();
+	public File2Base64(final String fileName) {
 		m_FileName = fileName;
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(final String[] args)
-	{
-		if (args.length == 0)
-		{
-			System.out.println("Mindestens ein Argument notwendig: Dateiname.");
+	public static void main(final String[] args) {
+		if (args.length == 0) {
+			log.warn("Mindestens ein Argument notwendig: Dateiname.");
 			return;
 		}
 
 		File2Base64 converter = new File2Base64(args[0]);
-		if (!converter.fileExists())
-		{
-			System.out.println("Die Datei " + args[0]
-					+ " wurde nicht gefunden!");
+		if (!converter.fileExists()) {
+			log.warn("Die Datei {} wurde nicht gefunden!", args[0]);
 			return;
 		}
 
-		try
-		{
+		try {
 			converter.convert();
-		} catch (IOException e)
-		{
-			System.out.println("Fehler beim Lesen!");
+		} catch (IOException e) {
+			log.error("Fehler beim Lesen!", e);
 			e.printStackTrace();
 		}
 	}
@@ -58,38 +57,30 @@ public class File2Base64
 	 * 
 	 * @throws IOException
 	 */
-	public void convert() throws IOException
-	{
+	public void convert() throws IOException {
 		File toRead = new File(m_FileName);
 
 		String base64 = "";
 
 		ByteArrayOutputStream output = null;
-		InputStream input = null;
-		try
-		{
-			input = new FileInputStream(toRead);
+		try (InputStream input = new FileInputStream(toRead)) {
 			output = new ByteArrayOutputStream();
 			IOUtils.copy(input, output);
-
-			// TODO: Base64 ablösen
-			base64 = ""; // DEBase64.encodeBinaryAsString(output.toByteArray());
-		} finally
-		{
-			IOUtils.closeQuietly(input);
+		} finally {
 			IOUtils.closeQuietly(output);
 		}
 
-		System.out.println(base64);
+		base64 = new String(Base64.encodeBase64(output.toByteArray(), false), StandardCharsets.UTF_8);
+
+		log.info(base64);
 	}
 
 	/**
-	 * Prüft ob die Datei existiert
+	 * Prï¿½ft ob die Datei existiert
 	 * 
 	 * @return
 	 */
-	public boolean fileExists()
-	{
+	public boolean fileExists() {
 		File f = new File(m_FileName);
 		return f.exists();
 	}
