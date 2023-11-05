@@ -1,4 +1,4 @@
-package util;
+package toolbox;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -9,7 +9,7 @@ import java.util.Random;
 public class FiftyTwo {
 
 	/** Distinct values */
-	private final LinkedList<Integer> m_Existing = new LinkedList<Integer>();
+	private final LinkedList<Integer> m_Existing = new LinkedList<>();
 
 	/** The Year that we are in */
 	private final int m_Year;
